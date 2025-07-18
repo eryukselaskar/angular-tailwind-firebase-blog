@@ -1,0 +1,75 @@
+<div
+  class="max-w-4xl mx-auto mt-12 p-8 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-lg"
+>
+  <h2
+    class="text-3xl font-semibold text-gray-900 dark:text-white mb-8 flex items-center gap-2"
+  >
+    📝 Yeni Blog Yazısı Ekle
+  </h2>
+
+  <form (ngSubmit)="addPost()" class="space-y-6">
+    <!-- Başlık -->
+    <div>
+      <label
+        for="title"
+        class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+      >
+        Başlık
+      </label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        [(ngModel)]="newPost.title"
+        required
+        placeholder="Yazının başlığı..."
+        class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      />
+    </div>
+
+    <!-- Kapak Görseli -->
+<div>
+  <label
+    for="coverImage"
+    class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+  >
+    Kapak Görseli <span class="text-xs text-gray-500">(600x400 boyutunda önerilir)</span>
+  </label>
+  <input
+    type="text"
+    id="coverImage"
+    name="coverImage"
+    [(ngModel)]="newPost.coverImage"
+    placeholder="https://... şeklinde görsel bağlantısı"
+    class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+  />
+</div>
+
+    <!-- İçerik -->
+    <div>
+      <label
+        for="content"
+        class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+      >
+        İçerik
+      </label>
+      <editor
+        [(ngModel)]="newPost.content"
+        name="content"
+        [init]="editorConfig"
+        class="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+        apiKey="g7iwijccvfvdqusbq8bujjja1x48xn6tt2r3psqe6t4aag9f"
+      ></editor>
+    </div>
+
+    <!-- Gönder Butonu -->
+    <div class="flex justify-end">
+      <button
+        type="submit"
+        class="inline-flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+      >
+        💾 Yazıyı Ekle
+      </button>
+    </div>
+  </form>
+</div>
