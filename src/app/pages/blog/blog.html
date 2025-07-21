@@ -12,31 +12,35 @@
 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 px-4 sm:px-8">
   <div
     *ngFor="let post of posts"
-    class="bg-white border border-gray-200 rounded-2xl shadow hover:shadow-md dark:bg-gray-800 dark:border-gray-700 transition overflow-hidden"
+    class="bg-white border border-gray-200 rounded-2xl shadow hover:shadow-md dark:bg-gray-800 dark:border-gray-700 transition overflow-hidden flex flex-col"
   >
     <a [routerLink]="['/blog', post.slug]">
       <img
-        class="w-full object-cover"
+        class="w-full  object-cover"
         [src]="post.coverImage || 'https://placehold.co/600x400?text=Kapak+Görseli'"
         alt="{{ post.title }}"
       />
     </a>
 
-    <div class="p-5 flex flex-col justify-between gap-3 h-full">
+    <div class="flex flex-col justify-between flex-grow p-5 gap-3">
       <div>
         <a [routerLink]="['/blog', post.slug]">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3
+            class="text-lg font-semibold text-gray-900 dark:text-white line-clamp-2 mb-1"
+          >
             {{ post.title }}
           </h3>
         </a>
 
         <div
           [innerHTML]="post.content | slice : 0 : 200"
-          class="text-sm text-gray-700 dark:text-gray-300"
+          class="text-sm text-gray-700 dark:text-gray-300 line-clamp-4"
         ></div>
       </div>
 
-      <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mt-2">
+      <div
+        class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mt-2"
+      >
         <span>
           {{ post.createdAt?.toDate() | date : 'd MMMM y' : '' : 'tr' }}
         </span>

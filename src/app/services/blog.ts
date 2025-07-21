@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, addDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, addDoc,query,orderBy } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,7 +12,8 @@ export class BlogService {
   // Blog yazılarını getir
   getPosts(): Observable<any[]> {
     const postsRef = collection(this.firestore, 'posts');
-    return collectionData(postsRef, { idField: 'id' });
+    const q = query(postsRef, orderBy('createdAt', 'desc'));
+    return collectionData(q, { idField: 'id' });
   }
 
   // Yeni blog yazısı ekle

@@ -49,12 +49,32 @@ export class AddPost {
   
 
   private generateSlug(title: string): string {
-    return title
+    const turkishMap: { [key: string]: string } = {
+      ç: 'c',
+      Ç: 'c',
+      ğ: 'g',
+      Ğ: 'g',
+      ı: 'i',
+      İ: 'i',
+      ö: 'o',
+      Ö: 'o',
+      ş: 's',
+      Ş: 's',
+      ü: 'u',
+      Ü: 'u',
+    };
+  
+    const cleaned = title
+      .split('')
+      .map((char) => turkishMap[char] || char)
+      .join('')
       .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, '')
       .replace(/\s+/g, '-')
       .replace(/--+/g, '-');
+  
+    return cleaned;
   }
   editorConfig = {
     menubar: false,
