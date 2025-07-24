@@ -2,21 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EditorModule } from '@tinymce/tinymce-angular';
-import { v4 as uuidv4 } from 'uuid';
-import {
-  collection,
-  Firestore,
-  addDoc,
-  doc,
-  setDoc,
-} from '@angular/fire/firestore';
+import { BlogService } from '../../services/blog';
 
 @Component({
   selector: 'app-add-post',
   standalone: true,
   imports: [CommonModule, FormsModule, EditorModule],
   templateUrl: './add-post.html',
-  styleUrl: './add-post.css',
+  styleUrls: ['./add-post.css'],
 })
 export class AddPost {
   newPost = {
@@ -25,57 +18,22 @@ export class AddPost {
     coverImage: '',
   };
 
-  constructor(private firestore: Firestore) {}
+  constructor(private blogService: BlogService) {}
 
   async addPost() {
-    if (!this.newPost.title || !this.newPost.content || !this.newPost.coverImage) return;
-  
-    const id = uuidv4();
-    const slug = this.generateSlug(this.newPost.title);
-  
-    const post = {
-      id,
-      slug,
-      ...this.newPost,
-      createdAt: new Date(),
-    };
-  
-    const postsRef = doc(this.firestore, 'posts', id);
-    await setDoc(postsRef, post);
-  
+    if (
+      !this.newPost.title ||
+      !this.newPost.content ||
+      !this.newPost.coverImage
+    )
+      return;
+
+    await this.blogService.addPost(this.newPost);
+
     this.newPost = { title: '', coverImage: '', content: '' };
     alert('Yazı eklendi!');
   }
-  
 
-  private generateSlug(title: string): string {
-    const turkishMap: { [key: string]: string } = {
-      ç: 'c',
-      Ç: 'c',
-      ğ: 'g',
-      Ğ: 'g',
-      ı: 'i',
-      İ: 'i',
-      ö: 'o',
-      Ö: 'o',
-      ş: 's',
-      Ş: 's',
-      ü: 'u',
-      Ü: 'u',
-    };
-  
-    const cleaned = title
-      .split('')
-      .map((char) => turkishMap[char] || char)
-      .join('')
-      .toLowerCase()
-      .trim()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/--+/g, '-');
-  
-    return cleaned;
-  }
   editorConfig = {
     menubar: false,
     plugins:

@@ -7,21 +7,6 @@
     {{ post.title }}
   </h1>
 
-  <div class="flex items-center gap-2">
-    <a
-      class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-md transition"
-      [routerLink]="['/duzenle', post.id]"
-    >
-      ✏️ Düzenle
-    </a>
-
-    <a
-      class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition"
-      [routerLink]="['/sil', post.id]"
-    >
-      ✏️ Sil
-    </a>
-  </div>
 </div>
 
   <!-- Kapak Görseli -->
