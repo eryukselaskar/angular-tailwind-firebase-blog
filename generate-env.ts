@@ -1,8 +1,13 @@
 // generate-env.ts
 const fs = require('fs');
-const path = './src/environments/environment.ts';
+const path = './src/environments';
+const file = `${path}/environment.ts`;
 
-const envContent = `
+if (!fs.existsSync(path)) {
+  fs.mkdirSync(path, { recursive: true });
+}
+
+const content = `
 export const environment = {
   production: true,
   firebase: {
@@ -16,5 +21,5 @@ export const environment = {
 };
 `;
 
-fs.writeFileSync(path, envContent);
-console.log('✅ environment.ts dosyası oluşturuldu');
+fs.writeFileSync(file, content);
+console.log('✅ environment.ts oluşturuldu');
