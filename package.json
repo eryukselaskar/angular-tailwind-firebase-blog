@@ -4,10 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run generate-env && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:blog": "node dist/blog/server/server.mjs"
+    "serve:ssr:blog": "node dist/blog/server/server.mjs",
+    "generate-env": "node generate-env.ts"
   },
   "prettier": {
     "overrides": [
